@@ -21,8 +21,8 @@ dependencies:
   - brotlipy=0.7.0=py310h7f8727e_1002
   - bzip2=1.0.8=h7b6447c_0
   - c-ares=1.18.1=h7f8727e_0
-  - ca-certificates=2022.10.11=h06a4308_0
-  - certifi=2022.9.24=py310h06a4308_0
+  - ca-certificates=2022.9.24=ha878542_0
+  - certifi=2022.9.24=pyhd8ed1ab_0
   - cffi=1.15.1=py310h74dc2b5_0
   - chardet=4.0.0=py310h06a4308_1003
   - click=8.0.4=py310h06a4308_0
@@ -42,6 +42,7 @@ dependencies:
   - flake8=4.0.1=pyhd3eb1b0_1
   - fontconfig=2.13.1=h6c09931_0
   - freetype=2.12.1=h4a9f257_0
+  - geos=3.11.0=h27087fc_0
   - gettext=0.21.0=hf68c758_0
   - giflib=5.2.1=h7b6447c_0
   - git=2.34.1=pl5262hc120c5b_0
@@ -132,7 +133,7 @@ dependencies:
   - numpydoc=1.4.0=py310h06a4308_0
   - openblas-ilp64=0.3.21=pthreads_h3d04fff_3
   - openlibm=0.7.5=h7f98852_0
-  - openssl=1.1.1q=h7f8727e_0
+  - openssl=1.1.1q=h166bdaf_1
   - p7zip=15.09=h2d50403_4
   - packaging=21.3=pyhd3eb1b0_0
   - pandocfilters=1.5.0=pyhd3eb1b0_0

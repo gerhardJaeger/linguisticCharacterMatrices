@@ -23,15 +23,14 @@ You need to have anaconda/miniconda installed on your machine.
    cd lexibank-analysed
    pip install -e .
    cldfbench download cldfbench_lexibank_analysed.py
-   cldfbench makecldf --with-cldfreadme cldfbench_lexibank_analysed.py
-   cd ../code
    ```
-
+   
 4. extract character matrices
    ```shell
+   cd ../code
    julia extractMatrices.jl
    ```
-
+   
    
 
 The matrices created are stored in the subdirectory `lexibank/characterMatrices`.

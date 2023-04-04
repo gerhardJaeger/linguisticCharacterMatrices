@@ -27,6 +27,6 @@ docs/site/
 # environment.
 **/Manifest.toml
 
-lexibank/lexibank-analysed
+lexibank-analysed
 
 **/.vscode

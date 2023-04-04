@@ -1,4 +1,5 @@
-mkdir ../data/phylip_mltrees
+
+mkdir -p ../data/phylip_mltrees
 for f in `ls ../data/phylip_files/`
 do
     db=`basename $f .phy`
@@ -6,9 +7,9 @@ do
 done
 
 
-mkdir ../data/catg_mltrees
-for f in `ls ../data/catg/`
+mkdir -p ../data/catg_mltrees
+for f in `ls ../data/catg_files/`
 do
     db=`basename $f .catg`
-    raxml-ng --msa ../data/catg/$f --model BIN --prefix ../data/catg_mltrees/$db --prob-msa on --redo
+    raxml-ng --msa ../data/catg_files/$f --model BIN --prefix ../data/catg_mltrees/$db --prob-msa on --redo
 done

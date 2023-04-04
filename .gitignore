@@ -30,3 +30,5 @@ docs/site/
 lexibank-analysed
 
 **/.vscode
+**/*raxml*
+**/*sif

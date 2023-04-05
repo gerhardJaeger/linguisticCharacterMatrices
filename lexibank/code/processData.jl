@@ -28,6 +28,7 @@ isfile(glottologF) || download(
 ##
 
 raw = readlines(glottologF);
+rm(glottologF)
 
 ##
 
@@ -71,8 +72,6 @@ end
 
 glottolog_taxa = glot.get_leaf_names()
 
-
-glot.write(outfile="../data/glottolog_complete.tre", format=9)
 
 ##
 

@@ -75,7 +75,7 @@ glottolog_taxa = glot.get_leaf_names()
 
 ##
 
-pth = "../../lexibank-analysed/raw"
+pth = "../lexibank-analysed/raw"
 
 datasets = readdir(pth)
 

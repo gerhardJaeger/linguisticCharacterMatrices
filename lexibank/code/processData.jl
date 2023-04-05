@@ -18,6 +18,11 @@ using PyCall
 ete3 = pyimport("ete3")
 ##
 
+try
+    mkdir("../data")
+catch e
+end
+
 glottologF = "../data/tree_glottolog_newick.txt"
 
 isfile(glottologF) || download(
@@ -88,7 +93,14 @@ filter!(x -> x != "README.md", datasets)
 cog_dbs = []
 for db in datasets
     if isfile(joinpath(pth, db, "cldf", "cognates.csv"))
-        push!(cog_dbs, db)
+        languages = CSV.File(
+            joinpath(pth, db, "cldf", "languages.csv")
+        ) |> DataFrame
+        dropmissing!(languages, :Glottocode)
+        filter!(x -> x.Glottocode ∈ glottolog_taxa, languages)
+        if size(languages, 1) > 3
+            push!(cog_dbs, db)
+        end
     end
 end
 
@@ -111,10 +123,6 @@ function merge_db_data(db)
         makeunique=true
     )
     dropmissing!(d, :Glottocode)
-    missing_taxa = [x for x in unique(d.Glottocode) if x ∉ glottolog_taxa]
-    for l in missing_taxa
-        @info "$db $l"
-    end
     filter!(x -> x.Glottocode ∈ glottolog_taxa, d)
     df = @pipe d |>
                select(
@@ -130,7 +138,7 @@ end
 ##
 
 dfDict = Dict()
-for db in cog_dbs
+@showprogress for db in cog_dbs
     dfDict[db] = merge_db_data(db)
 end
 
@@ -138,13 +146,9 @@ end
 
 function get_glottolog_tree(db)
     df = dfDict[db]
-
     db_glottocodes = unique(df.Glottocode)
-
     glot_db = glot.copy()
-
     glot_db.prune([(glot_db & l) for l in db_glottocodes])
-
     for g in db_glottocodes
         ll = filter(x -> x.Glottocode == g, df).language
         for l in ll
@@ -152,7 +156,6 @@ function get_glottolog_tree(db)
         end
     end
     glot_db.prune([(glot_db&l) for l in df.language])
-
     glot_db
 end
 ##

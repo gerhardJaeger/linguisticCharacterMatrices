@@ -23,5 +23,5 @@ done
 for f in `ls ../data/catg_mltrees/*bestTree`
 do
     b=`basename $f .raxml.bestTree`
-    cp $f ../data/catg_mltrees/$b"_mltree.tre"
+    cp $f ../data/catg_mltrees/$b"_catg_mltree.tre"
 done

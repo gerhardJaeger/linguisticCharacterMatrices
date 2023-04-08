@@ -96,7 +96,7 @@ for db in datasets
         languages = CSV.File(
             joinpath(pth, db, "cldf", "languages.csv")
         ) |> DataFrame
-        dropmissing!(languages, :Glottocode)
+        dropmissing!(languages, [:Glottocode, :Latitude, :Longitude])
         filter!(x -> x.Glottocode ∈ glottolog_taxa, languages)
         if size(languages, 1) > 3
             push!(cog_dbs, db)
@@ -150,7 +150,7 @@ function get_glottolog_tree(db)
     glot_db = glot.copy()
     glot_db.prune([(glot_db & l) for l in db_glottocodes])
     for g in db_glottocodes
-        ll = filter(x -> x.Glottocode == g, df).language
+        ll = filter(x -> x.Glottocode == g, df).language |> unique
         for l in ll
             (glot_db & g).add_child(name = l)
         end
@@ -194,7 +194,10 @@ function db2charMtx(db)
 end
 ##
 
-charMatrices = db2charMtx.(cog_dbs)
+charMatrices = []
+@showprogress for db in cog_dbs
+    push!(charMatrices, db2charMtx(db))
+end
 
 ##
 
@@ -271,7 +274,37 @@ end
 
 
 ##
+pth_mb = "mrbayes_scripts"
+pth_output = joinpath(pth_mb,"output")
 
+mkpath(pth_output)
+
+
+
+for db in cog_dbs
+    mb = """#Nexus
+    Begin MrBayes;
+        execute $(pth_nex)/$(db).nex;
+        lset rates=gamma;
+        lset coding=noabsencesites;
+        prset brlenspr = clock:uniform;
+        prset clockvarpr = igr;
+        set beagleprecision=double;
+        mcmcp stoprule=yes burninfrac=0.25 stopval=0.01 filename=$(pth_output)/$db samplefreq=1000;
+        mcmc ngen=100000000 nchains=2 nruns=2;
+        sumt;
+        q;
+    end;
+    """
+
+    open(joinpath(pth_mb, "$db.mb.nex"), "w") do f
+        write(f, mb)
+    end
+end
+
+
+
+##
 
 function get_catg(db)
     df = dfDict[db]
@@ -360,3 +393,5 @@ end
         write(file, get_catg(db))
     end
 end
+##
+

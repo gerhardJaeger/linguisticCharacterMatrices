@@ -1,0 +1,13 @@
+#Nexus
+Begin MrBayes;
+    execute ../data/nexus_files/dunnielex.nex;
+    lset rates=gamma;
+    lset coding=noabsencesites;
+    prset brlenspr = clock:uniform;
+    prset clockvarpr = igr;
+    set beagleprecision=double;
+    mcmcp stoprule=yes burninfrac=0.25 stopval=0.01 filename=mrbayes_scripts/output/dunnielex samplefreq=1000;
+    mcmc ngen=100000000 nchains=2 nruns=2;
+    sumt;
+    q;
+end;

@@ -32,3 +32,4 @@ lexibank-analysed
 **/.vscode
 **/*raxml*
 **/*sif
+**/envs

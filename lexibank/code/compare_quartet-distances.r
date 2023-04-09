@@ -1,6 +1,6 @@
 library(tidyverse)
 library(Quartet)
-library(ggpubr)
+
 
 
 gqd <- function(t1, t2) {
@@ -32,11 +32,11 @@ for (db in dbs) {
 
 df <- tibble(db=dbs, phylip=d_phy, catg=d_catg)
 
-ggpaired(df, "phylip", "catg", fill="condition")
+
 
 df %>% 
     mutate(diff = phylip-catg) %>%
-    ggplot(aes(x=diff)) +
-    geom_density()
+    ggplot(aes(y=diff)) +
+    geom_boxplot()
 
 write_csv(df, "gqd_comparison.csv")

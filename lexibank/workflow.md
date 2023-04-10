@@ -4,7 +4,7 @@
 
 You need to have anaconda/miniconda installed on your machine.
 
-1. create conda environment from lexibank.yml
+1. create conda environment from `package-list.txt`
 
    ```shell
    conda env create -f lexibank.yml

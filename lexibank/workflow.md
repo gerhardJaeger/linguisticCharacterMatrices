@@ -4,7 +4,7 @@
 
 You need to have anaconda/miniconda installed on your machine.
 
-1. create conda environment from `package-list.txt`
+1. create `conda` environment from `lexibank.yml`
 
    ```shell
    conda env create -f lexibank.yml
@@ -23,12 +23,13 @@ You need to have anaconda/miniconda installed on your machine.
    cd lexibank-analysed
    git checkout v0.2
    pip install -e .
+   pip install chardet
    cldfbench download cldfbench_lexibank_analysed.py
    ```
 
 4. extract character matrices
    ```shell
-   cd ../lexibank/code
+   cd ../code
    julia processData.jl
    ```
 

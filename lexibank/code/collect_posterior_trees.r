@@ -17,5 +17,4 @@ for (db in dbs) {
     trees <- c(trees1[-(1:bi)], trees2[-(1:bi)])
     trees <- sample(trees, min(length(trees), 1000))
     write.tree(trees, str_interp("../data/mrbayes_posteriors/${db}.posterior.tree"))
-
 }
